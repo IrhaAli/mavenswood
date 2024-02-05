@@ -1,24 +1,58 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import { HashRouter as Router, Link, Route, Switch } from "react-router-dom";
+import Header from "./Header";
+import Login from "./Login";
+import ProfilePage from "./ProfilePage";
+import SignUp from "./SignUp";
 
 function App() {
+  const [username, setUsername] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [serverMessage, setServerMessage] = useState(false);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <>
+      <Router>
+        <Header
+          username={username}
+          isLoggedIn={isLoggedIn}
+          serverMessage={serverMessage}
         >
-          Learn React
-        </a>
-      </header>
-    </div>
+          <nav>
+            <Link to="/">Profile</Link>
+            <Link to="/signup">Sign Up</Link>
+            <Link to="/login">Login</Link>
+          </nav>
+        </Header>
+        <Switch>
+          <Route exact path="/">
+            <ProfilePage
+              isLoggedIn={isLoggedIn}
+              setIsLoggedIn={setIsLoggedIn}
+              setUsername={setUsername}
+              username={username}
+              serverMessage={serverMessage}
+              setServerMessage={setServerMessage}
+            />
+          </Route>
+          <Route path="/login">
+            <Login
+              setUsername={setUsername}
+              setIsLoggedIn={setIsLoggedIn}
+              serverMessage={serverMessage}
+              setServerMessage={setServerMessage}
+            />
+          </Route>
+          <Route path="/signup">
+            <SignUp
+              setUsername={setUsername}
+              setIsLoggedIn={setIsLoggedIn}
+              serverMessage={serverMessage}
+              setServerMessage={setServerMessage}
+            />
+          </Route>
+        </Switch>
+      </Router>
+    </>
   );
 }
 
