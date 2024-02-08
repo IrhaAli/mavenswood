@@ -16,7 +16,7 @@ function SignUpAPI(props) {
             cookies.set("jwt", data["jwt"]);
             cookies.set("name", data["user"]["display_name"]);
             cookies.set("email", data["user"]["user_email"]);
-            window.location.replace("http://localhost:3000/apps/test_app");
+            window.location.replace("https://ns1.youngtalentz.com/apps/test_app/#/profile");
           } else {
             props.setServerMessage(data["data"]["message"]);
           }

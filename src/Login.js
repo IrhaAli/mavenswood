@@ -4,11 +4,11 @@ import LoginAPI from "./LoginAPI";
 
 function Login(props) {
   const [APIDetailsLogin, setAPIDetailsLogin] = useState({
-    user: "",
+    email: "",
     pass: "",
   });
   const [loginDetails, setLoginDetails] = useState({
-    user: "",
+    email: "",
     pass: "",
   });
 
@@ -32,9 +32,9 @@ function Login(props) {
           <div className="login">
             <input
               type="text"
-              placeholder="User Name"
-              name="user"
-              value={loginDetails.user}
+              placeholder="Email"
+              name="email"
+              value={loginDetails.email}
               onChange={handleChange}
             />
             <input

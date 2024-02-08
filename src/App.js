@@ -24,22 +24,22 @@ function App() {
           serverMessage={serverMessage}
         >
           <nav>
-            <Link to="/">Profile</Link>
-            {!cookies.get('jwt') && <Link to="/signup">Sign Up</Link>}
-            {!cookies.get('jwt') && <Link to="/login">Login</Link>}
-            <Link to="/posts">Posts</Link>
-            {cookies.get('jwt') && <Link to="/new-post">New Post</Link>}
-            {cookies.get('jwt') && <Link to="/logout">Log Out</Link>}
+            <Link to="/">Home Page</Link>
+            {cookies.get("jwt") && <Link to="/profile">Profile</Link>}
+            {!cookies.get("jwt") && <Link to="/signup">Sign Up</Link>}
+            {!cookies.get("jwt") && <Link to="/login">Login</Link>}
+            {cookies.get("jwt") && <Link to="/new-post">New Post</Link>}
+            {cookies.get("jwt") && <Link to="/logout">Log Out</Link>}
           </nav>
         </Header>
         <Switch>
-          <Route path="/posts">
+          <Route exact path="/">
             <Posts />
           </Route>
           <Route path="/new-post">
             <NewPost setServerMessage={setServerMessage} />
           </Route>
-          <Route exact path="/">
+          <Route exact path="/profile">
             <ProfilePage
               isLoggedIn={isLoggedIn}
               setIsLoggedIn={setIsLoggedIn}
@@ -66,7 +66,7 @@ function App() {
             />
           </Route>
           <Route path="/logout">
-            <LogOut cookies={cookies}/>
+            <LogOut cookies={cookies} />
           </Route>
         </Switch>
       </Router>

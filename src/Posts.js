@@ -25,6 +25,7 @@ export default function Posts() {
     <Grid container spacing={2}>
       {posts.map((post, index) => (
       <Grid item xs={4} key={index}>
+        <a href={post.link} target="_blank">
         <Card>
            <CardContent>
                 <Typography
@@ -37,6 +38,7 @@ export default function Posts() {
                     dangerouslySetInnerHTML={{__html: post.content.rendered}} />
             </CardContent>
         </Card>
+        </a>
       </Grid>
      ))}
     </Grid>
