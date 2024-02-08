@@ -10,7 +10,7 @@ function LoginAPI(props) {
             let formData = new FormData()
             formData.append('username', props.APIDetailsLogin.user)
             formData.append('password', props.APIDetailsLogin.pass)
-            const url = 'https://ns1.youngtalentz.com/apps/test_app/?rest_route=/simple-jwt-login/v1/auth'
+            const url = `https://ns1.youngtalentz.com/apps/test_app/?rest_route=/simple-jwt-login/v1/auth&email=${props.APIDetailsLogin.user}&password=${props.APIDetailsLogin.pass}`
             fetch(url, {
                 method: 'POST',
                 body: formData
@@ -18,7 +18,6 @@ function LoginAPI(props) {
                 .then((response) => response.json())
                 .then((data) => {
                     if (data['success'] === true) {
-                        console.log(data)
                         localStorage.setItem('jwt', data['data']['jwt'])
                         setUrlToLogin(`https://ns1.youngtalentz.com/apps/test_app/?rest_route=/simple-jwt-login/v1/autologin&jwt=${data['data']['jwt']}`)
                     }

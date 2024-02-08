@@ -4,6 +4,8 @@ import Header from "./Header";
 import Login from "./Login";
 import ProfilePage from "./ProfilePage";
 import SignUp from "./SignUp";
+import Posts from "./Posts";
+import NewPost from "./NewPost";
 
 function App() {
   const [username, setUsername] = useState("");
@@ -21,9 +23,17 @@ function App() {
             <Link to="/">Profile</Link>
             <Link to="/signup">Sign Up</Link>
             <Link to="/login">Login</Link>
+            <Link to="/posts">Posts</Link>
+            <Link to="/new-post">New Post</Link>
           </nav>
         </Header>
         <Switch>
+          <Route path="/posts">
+            <Posts />
+          </Route>
+          <Route path="/new-post">
+            <NewPost setServerMessage={setServerMessage} />
+          </Route>
           <Route exact path="/">
             <ProfilePage
               isLoggedIn={isLoggedIn}

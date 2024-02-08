@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import logo from './logo.svg';
 import SignUpAPI from './SignUpAPI';
 
-function SingUp(props) {
+function SignUp(props) {
     const [APIDetailsSignUp, setAPIDetailsSignUp] = useState({
         user: '',    
         email: '',
@@ -13,7 +13,6 @@ function SingUp(props) {
         email: '',
         pass: '',
     })
-    console.log(signUpDetails)
 
     function handleChange(e) {
         const { name, value } = e.target
@@ -50,4 +49,4 @@ function SingUp(props) {
 
 }
 
-export default SingUp
+export default SignUp
