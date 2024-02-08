@@ -6,11 +6,15 @@ import ProfilePage from "./ProfilePage";
 import SignUp from "./SignUp";
 import Posts from "./Posts";
 import NewPost from "./NewPost";
+import Cookies from "universal-cookie";
+import LogOut from "./LogOut";
 
 function App() {
   const [username, setUsername] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [serverMessage, setServerMessage] = useState(false);
+  const cookies = new Cookies();
+
   return (
     <>
       <Router>
@@ -21,10 +25,11 @@ function App() {
         >
           <nav>
             <Link to="/">Profile</Link>
-            <Link to="/signup">Sign Up</Link>
-            <Link to="/login">Login</Link>
+            {!cookies.get('jwt') && <Link to="/signup">Sign Up</Link>}
+            {!cookies.get('jwt') && <Link to="/login">Login</Link>}
             <Link to="/posts">Posts</Link>
-            <Link to="/new-post">New Post</Link>
+            {cookies.get('jwt') && <Link to="/new-post">New Post</Link>}
+            {cookies.get('jwt') && <Link to="/logout">Log Out</Link>}
           </nav>
         </Header>
         <Switch>
@@ -59,6 +64,9 @@ function App() {
               serverMessage={serverMessage}
               setServerMessage={setServerMessage}
             />
+          </Route>
+          <Route path="/logout">
+            <LogOut cookies={cookies}/>
           </Route>
         </Switch>
       </Router>

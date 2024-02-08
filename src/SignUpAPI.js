@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Cookies from "universal-cookie";
 
 function SignUpAPI(props) {
