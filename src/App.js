@@ -6,30 +6,24 @@ import ProfilePage from "./ProfilePage";
 import SignUp from "./SignUp";
 import Posts from "./Posts";
 import NewPost from "./NewPost";
-import Cookies from "universal-cookie";
 import LogOut from "./LogOut";
 
 function App() {
-  const [username, setUsername] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [serverMessage, setServerMessage] = useState(false);
-  const cookies = new Cookies();
 
   return (
     <>
       <Router>
         <Header
-          username={username}
           isLoggedIn={isLoggedIn}
-          serverMessage={serverMessage}
         >
           <nav>
             <Link to="/">Home Page</Link>
-            {!cookies.get("jwt") && <Link to="/signup">Sign Up</Link>}
-            {!cookies.get("jwt") && <Link to="/login">Login</Link>}
-            {cookies.get("jwt") && <Link to="/profile">Profile</Link>}
-            {cookies.get("jwt") && <Link to="/new-post">New Post</Link>}
-            {cookies.get("jwt") && <Link to="/logout">Log Out</Link>}
+            {!isLoggedIn && <Link to="/signup">Sign Up</Link>}
+            {!isLoggedIn && <Link to="/login">Login</Link>}
+            {isLoggedIn && <Link to="/profile">Profile</Link>}
+            {isLoggedIn && <Link to="/new-post">New Post</Link>}
+            {isLoggedIn && <Link to="/logout">Log Out</Link>}
           </nav>
         </Header>
         <Switch>
@@ -37,36 +31,19 @@ function App() {
             <Posts />
           </Route>
           <Route path="/new-post">
-            <NewPost setServerMessage={setServerMessage} />
+            <NewPost />
           </Route>
           <Route exact path="/profile">
-            <ProfilePage
-              isLoggedIn={isLoggedIn}
-              setIsLoggedIn={setIsLoggedIn}
-              setUsername={setUsername}
-              username={username}
-              serverMessage={serverMessage}
-              setServerMessage={setServerMessage}
-            />
+            <ProfilePage />
           </Route>
           <Route path="/login">
-            <Login
-              setUsername={setUsername}
-              setIsLoggedIn={setIsLoggedIn}
-              serverMessage={serverMessage}
-              setServerMessage={setServerMessage}
-            />
+            <Login isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
           </Route>
           <Route path="/signup">
-            <SignUp
-              setUsername={setUsername}
-              setIsLoggedIn={setIsLoggedIn}
-              serverMessage={serverMessage}
-              setServerMessage={setServerMessage}
-            />
+            <SignUp isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
           </Route>
           <Route path="/logout">
-            <LogOut cookies={cookies} />
+            <LogOut />
           </Route>
         </Switch>
       </Router>

@@ -12,13 +12,14 @@ import Typography from "@mui/material/Typography";
 import { Container } from "@mui/material";
 import Cookies from "universal-cookie";
 
-function SignUp(props) {
+function SignUp({ isLoggedIn, setIsLoggedIn }) {
   const [signUpSubmitted, setSignUpSubmitted] = useState(false);
   const [signUpDetails, setSignUpDetails] = useState({
-    user: '',
-    email: '',
-    pass: '',
+    user: "",
+    email: "",
+    pass: "",
   });
+  const [serverMessage, setServerMessage] = useState("");
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -28,7 +29,11 @@ function SignUp(props) {
   }
 
   useEffect(() => {
-    if ((signUpDetails.user.length > 0) && (signUpDetails.email.length > 0) && (signUpDetails.pass.length > 0)) {
+    if (
+      signUpDetails.user.length > 0 &&
+      signUpDetails.email.length > 0 &&
+      signUpDetails.pass.length > 0
+    ) {
       const url = `https://ns1.youngtalentz.com/?rest_route=/simple-jwt-login/v1/users&email=${signUpDetails.email}&display_name=${signUpDetails.user}&password=${signUpDetails.pass}&AUTH_KEY=abc123`;
       fetch(url, {
         method: "POST",
@@ -36,13 +41,16 @@ function SignUp(props) {
         .then((response) => response.json()) //json
         .then((data) => {
           if (data["success"]) {
+            setIsLoggedIn(true);
             const cookies = new Cookies();
             cookies.set("jwt", data["jwt"]);
             cookies.set("name", data["user"]["display_name"]);
             cookies.set("email", data["user"]["user_email"]);
-            window.location.replace("https://ns1.youngtalentz.com/apps/test_app/#/profile");
+            window.location.replace(
+              "https://ns1.youngtalentz.com/apps/test_app/#/profile"
+            );
           } else {
-            props.setServerMessage(data["data"]["message"]);
+            setServerMessage(data["data"]["message"]);
           }
         });
     }
@@ -53,7 +61,11 @@ function SignUp(props) {
     setSignUpSubmitted((prev) => !prev);
   }
 
-  return (
+  return isLoggedIn ? (
+    window.location.replace(
+      "https://ns1.youngtalentz.com/apps/test_app/#/profile"
+    )
+  ) : (
     <Container component="main" maxWidth="lg">
       <Box
         sx={{
@@ -99,6 +111,7 @@ function SignUp(props) {
               <Typography component="h1" variant="h5">
                 Sign Up
               </Typography>
+              {serverMessage}
               <Box
                 component="form"
                 noValidate

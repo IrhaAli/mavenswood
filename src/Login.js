@@ -12,12 +12,13 @@ import Typography from "@mui/material/Typography";
 import { Container } from "@mui/material";
 import Cookies from "universal-cookie";
 
-function Login(props) {
+function Login({ isLoggedIn, setIsLoggedIn }) {
   const [loginSubmitted, setLoginSubmitted] = useState(false);
   const [loginDetails, setLoginDetails] = useState({
     email: "",
     pass: "",
   });
+  const [serverMessage, setServerMessage] = useState("");
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -39,7 +40,7 @@ function Login(props) {
         .then((response) => response.json())
         .then((data) => {
           if (data.token) {
-            console.log('+++++here')
+            setIsLoggedIn(true);
             const cookies = new Cookies();
             cookies.set("jwt", data["token"]);
             cookies.set("name", data["user_display_name"]);
@@ -48,7 +49,7 @@ function Login(props) {
               "https://ns1.youngtalentz.com/apps/test_app/#/profile"
             );
           } else {
-            props.setServerMessage(data["message"]);
+            setServerMessage(data["message"]);
           }
         });
     }
@@ -59,7 +60,11 @@ function Login(props) {
     setLoginSubmitted((prev) => !prev);
   }
 
-  return (
+  return isLoggedIn ? (
+    window.location.replace(
+      "https://ns1.youngtalentz.com/apps/test_app/#/profile"
+    )
+  ) : (
     <Container component="main" maxWidth="lg">
       <Box
         sx={{
@@ -105,6 +110,7 @@ function Login(props) {
               <Typography component="h1" variant="h5">
                 Sign in
               </Typography>
+              {serverMessage}
               <Box
                 component="form"
                 noValidate

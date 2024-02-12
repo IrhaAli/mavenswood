@@ -1,7 +1,9 @@
-import react from "react";
+import React from "react";
+import Cookies from "universal-cookie";
 
-function Header({ children, ...props }) {
-  const displayName = props.isLoggedIn ? props.userName : "Guest";
+function Header({ children }) {
+  const cookies = new Cookies();
+  const displayName = cookies.get('name') ? cookies.get('name') : "Guest";
 
   return (
     <>
