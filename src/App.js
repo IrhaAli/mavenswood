@@ -25,9 +25,9 @@ function App() {
         >
           <nav>
             <Link to="/">Home Page</Link>
-            {cookies.get("jwt") && <Link to="/profile">Profile</Link>}
             {!cookies.get("jwt") && <Link to="/signup">Sign Up</Link>}
             {!cookies.get("jwt") && <Link to="/login">Login</Link>}
+            {cookies.get("jwt") && <Link to="/profile">Profile</Link>}
             {cookies.get("jwt") && <Link to="/new-post">New Post</Link>}
             {cookies.get("jwt") && <Link to="/logout">Log Out</Link>}
           </nav>
