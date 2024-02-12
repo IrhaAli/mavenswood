@@ -6,7 +6,7 @@ So why create a collaboration between React and WordPress? Well many commend Wor
 
 How exactly did I test out this collaboration? I went on a mission to create a React app that uses WordPress REST API with user signup and login and the ability to create and read posts. It's a very standard idea but it's the foundation of a more developed idea for a hotel booking website.
 
-These are the tnutorials I used to create the web application.
+These are the tutorials I used to create the web application.
 - [How to Build a Dynamic Website from Scratch with WordPress](https://www.youtube.com/watch?v=AmUD3GGs6-g&t=954s)
 - [React frontend Wordpress REST API backend](https://www.youtube.com/watch?v=aGLUaDaa4ko&t=3019s)
 - [JWT plugin for Login API in WordPress](https://www.youtube.com/watch?v=Tm0uZA5EBIc&t=342s)
@@ -19,3 +19,5 @@ Tech Stack
 - Postman (Optional)
 
 [Final Product](https://www.loom.com/share/1561996c427044dfb124ba349f549b11)
+
+1500-3000 words
