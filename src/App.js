@@ -70,7 +70,7 @@ function App() {
             <NewPost isLoggedIn={isLoggedIn} />
           </Route>
           <Route path="/profile">
-            <ProfilePage isLoggedIn={isLoggedIn} />
+            <ProfilePage isLoggedIn={isLoggedIn} posts={posts}/>
           </Route>
           <Route path="/login">
             <Login isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
