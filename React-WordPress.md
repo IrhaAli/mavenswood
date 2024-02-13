@@ -21,3 +21,11 @@ Tech Stack
 [Final Product](https://www.loom.com/share/1561996c427044dfb124ba349f549b11)
 
 1500-3000 words
+
+What I couldn't achieve?
+- Security in terms of the authorization key for creating a user. I couldn't figure out where on the server to store the file so that it's only accessible to me.
+
+Potential updates in the future
+- A search bar
+- Recent section under all posts
+- Edit/Delete My Post

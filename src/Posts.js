@@ -3,16 +3,35 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
+import TextField from "@mui/material/TextField";
 
 export default function Posts() {
   const [posts, setPosts] = useState([]);
+  const [filteredPosts, setFilteredPosts] = useState([]);
+  const [search, setSearch] = useState("");
+
   const pairedUsers = function (fetchedUsers) {
-    console.log(fetchedUsers);
     const users = {};
     for (const user of fetchedUsers) {
       users[`${user.id}`] = user.name;
     }
     return users;
+  };
+
+  const handleChange = function (e) {
+    e.preventDefault();
+    setSearch(e.target.value);
+    console.log(search);
+    setFilteredPosts(
+      search.length > 0
+        ? posts.filter(
+            (post) =>
+              post.title.rendered.includes(search) ||
+              post.content.rendered.includes(search) ||
+              post.author.includes(search)
+          )
+        : posts
+    );
   };
 
   useEffect(() => {
@@ -34,43 +53,55 @@ export default function Posts() {
         author: users[`${post.author}`],
       }));
       setPosts(posts);
+      setFilteredPosts(posts);
+      setSearch("");
     }
 
     loadPosts();
   }, []);
 
   return (
-    <Grid container spacing={2}>
-      {posts.map((post, index) => (
-        <Grid item xs={4} key={index}>
-          <a href={post.link} target="_blank">
-            <Card>
-              <CardContent>
-                <Typography
-                  color="textSecondary"
-                  gutterBottom
-                  dangerouslySetInnerHTML={{ __html: post.title.rendered }}
-                />
-                <Typography
-                  color="body2"
-                  gutterBottom
-                  dangerouslySetInnerHTML={{ __html: post.author }}
-                />
-                <Typography
-                  color="body2"
-                  gutterBottom
-                  dangerouslySetInnerHTML={{ __html: post.date }}
-                />
-                <Typography
-                  variant="body2"
-                  component="p"
-                  dangerouslySetInnerHTML={{ __html: post.content.rendered }}
-                />
-              </CardContent>
-            </Card>
-          </a>
-        </Grid>
-      ))}
-    </Grid>
+    <>
+      <TextField
+        margin="normal"
+        id="search"
+        label="Search by author, title or content"
+        name="search"
+        value={search}
+        onChange={handleChange}
+      />
+      <Grid container spacing={2}>
+        {filteredPosts.map((post, index) => (
+          <Grid item xs={4} key={index}>
+            <a href={post.link} target="_blank">
+              <Card>
+                <CardContent>
+                  <Typography
+                    color="textSecondary"
+                    gutterBottom
+                    dangerouslySetInnerHTML={{ __html: post.title.rendered }}
+                  />
+                  <Typography
+                    color="body2"
+                    gutterBottom
+                    dangerouslySetInnerHTML={{ __html: post.author }}
+                  />
+                  <Typography
+                    color="body2"
+                    gutterBottom
+                    dangerouslySetInnerHTML={{ __html: post.date }}
+                  />
+                  <Typography
+                    variant="body2"
+                    component="p"
+                    dangerouslySetInnerHTML={{ __html: post.content.rendered }}
+                  />
+                </CardContent>
+              </Card>
+            </a>
+          </Grid>
+        ))}
+      </Grid>
+    </>
   );
 }
