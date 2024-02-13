@@ -38,7 +38,7 @@ function SignUp({ isLoggedIn, setIsLoggedIn }) {
       fetch(url, {
         method: "POST",
       })
-        .then((response) => response.json()) //json
+        .then((response) => response.json())
         .then((data) => {
           if (data["success"]) {
             setIsLoggedIn(true);
@@ -49,10 +49,14 @@ function SignUp({ isLoggedIn, setIsLoggedIn }) {
             window.location.replace(
               "https://ns1.youngtalentz.com/apps/#/profile"
             );
+          } else {
+            setServerMessage(data.message);
           }
-        });
+        }).catch((data) => {
+          setServerMessage(data.message);
+        })
     } else {
-      setServerMessage("Please include a username, email and password.");
+      setServerMessage("<p>Please include a username, email and password.</p>");
     }
   }
 
@@ -104,7 +108,7 @@ function SignUp({ isLoggedIn, setIsLoggedIn }) {
               <Typography component="h1" variant="h5">
                 Sign Up
               </Typography>
-              {serverMessage}
+              <div dangerouslySetInnerHTML={{ __html: serverMessage }} />
               <Box
                 component="form"
                 noValidate
@@ -159,12 +163,7 @@ function SignUp({ isLoggedIn, setIsLoggedIn }) {
                   Sign Up
                 </Button>
                 <Grid container>
-                  <Grid item xs>
-                    <Link href="#" variant="body2">
-                      Forgot password?
-                    </Link>
-                  </Grid>
-                  <Grid item>
+                  <Grid item >
                     <Link href="#/login" variant="body2">
                       {"Already have an account? Login"}
                     </Link>

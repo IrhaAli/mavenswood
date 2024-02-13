@@ -49,13 +49,11 @@ function Login({ isLoggedIn, setIsLoggedIn }) {
               "https://ns1.youngtalentz.com/apps/#/profile"
             );
           } else {
-            setServerMessage(
-              "There was an error while logging in. Please, try again."
-            );
+            setServerMessage(data.message);
           }
         });
     } else {
-      setServerMessage("Please include your email and password.");
+      setServerMessage("<p>Please include your email and password.</p>");
     }
   }
 
@@ -107,7 +105,7 @@ function Login({ isLoggedIn, setIsLoggedIn }) {
               <Typography component="h1" variant="h5">
                 Sign in
               </Typography>
-              {serverMessage}
+              <div dangerouslySetInnerHTML={{ __html: serverMessage }} />
               <Box
                 component="form"
                 noValidate
