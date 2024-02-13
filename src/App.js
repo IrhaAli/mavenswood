@@ -52,7 +52,10 @@ function App() {
   return (
     <>
       <Router>
-        <Header isLoggedIn={isLoggedIn} name={cookies.get("name") ? cookies.get("name") : "Guest"}>
+        <Header
+          name={cookies.get("name") ? cookies.get("name") : "Guest"}
+          isFooter={false}
+        >
           <nav>
             <Link to="/">Home Page</Link>
             {!cookie && <Link to="/signup">Sign Up</Link>}
@@ -64,13 +67,13 @@ function App() {
         </Header>
         <Switch>
           <Route exact path="/">
-            <Posts posts={posts}/>
+            <Posts posts={posts} />
           </Route>
           <Route path="/new-post">
             <NewPost isLoggedIn={isLoggedIn} />
           </Route>
           <Route path="/profile">
-            <ProfilePage isLoggedIn={isLoggedIn} posts={posts}/>
+            <ProfilePage isLoggedIn={isLoggedIn} posts={posts} />
           </Route>
           <Route path="/login">
             <Login isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
@@ -82,6 +85,7 @@ function App() {
             <LogOut />
           </Route>
         </Switch>
+        <Header name={""} isFooter={true} />
       </Router>
     </>
   );

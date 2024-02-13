@@ -17,12 +17,6 @@ code {
   text-align: center;
 }
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  margin: 0 2em 0 2em;
-}
-
 h1{
   text-align: center;
 }
@@ -103,9 +97,14 @@ input[type=submit]:hover{
 
 .header {
   display: flex;
+  height: 100px;
   justify-content: space-between;
-  margin: 0 2em 0 2em;
   background-color: black;
+  color: white;
+}
+
+a {
+  color: white;
 }
 
 .App {
