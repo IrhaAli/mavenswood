@@ -1,16 +1,14 @@
-import React, { useState } from "react";
-import logo from "./logo.svg";
-import NewPostAPI from "./NewPostAPI";
+import React, { useState, useEffect } from "react";
+import Cookies from "universal-cookie";
 
-function NewPost(props) {
-  const [APIDetailsPost, setAPIDetailsPost] = useState({
-    title: "",
-    content: "",
-  });
+function NewPost({ isLoggedIn }) {
+  const [postSubmitted, setPostSubmitted] = useState(false);
   const [postDetails, setPostDetails] = useState({
     title: "",
     content: "",
   });
+  const cookies = new Cookies();
+  const [serverMessage, setServerMessage] = useState("");
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -20,14 +18,46 @@ function NewPost(props) {
   }
 
   function handleSubmit() {
-    setAPIDetailsPost({ ...postDetails }); //check i need the ...here
+    postDetails.title.length > 0 || postDetails.content.length > 0
+      ? setPostSubmitted((prev) => !prev)
+      : setServerMessage("Please enter a title and content");
   }
-  return (
+
+  useEffect(() => {
+    if (postDetails.title.length > 0 || postDetails.content.length > 0) {
+      const url = `https://ns1.youngtalentz.com/wp-json/wp/v2/posts?title=${postDetails.title}&content=${postDetails.content}&status=publish`;
+      fetch(url, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${cookies.get("jwt")}`,
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data) {
+            setServerMessage("");
+            window.location.replace(
+              "https://ns1.youngtalentz.com/apps"
+            );
+          } else {
+            setServerMessage(
+              "There was an error adding the post. Please, try again."
+            );
+          }
+        });
+    }
+  }, [postSubmitted]);
+
+  return isLoggedIn ? (
+    window.location.replace(
+      "https://ns1.youngtalentz.com/apps/#/profile"
+    )
+  ) : (
     <>
       <div className="App">
         <header className="App-header">
           <h2>New Post</h2>
-          <p>{props.serverMessage}</p>
+          <p>{serverMessage}</p>
           <div className="login">
             <input
               type="text"
@@ -45,13 +75,8 @@ function NewPost(props) {
             />
             <input type="submit" value="Go" onClick={handleSubmit} />
           </div>
-          <img src={logo} className="App-logo" alt="logo"></img>
         </header>
       </div>
-      <NewPostAPI
-        APIDetailsPost={APIDetailsPost}
-        setServerMessage={props.setServerMessage}
-      />
     </>
   );
 }

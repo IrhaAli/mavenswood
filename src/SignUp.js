@@ -47,7 +47,7 @@ function SignUp({ isLoggedIn, setIsLoggedIn }) {
             cookies.set("name", data["user"]["display_name"]);
             cookies.set("email", data["user"]["user_email"]);
             window.location.replace(
-              "https://ns1.youngtalentz.com/apps/test_app/#/profile"
+              "https://ns1.youngtalentz.com/apps/#/profile"
             );
           } else {
             setServerMessage(data["data"]["message"]);
@@ -63,7 +63,7 @@ function SignUp({ isLoggedIn, setIsLoggedIn }) {
 
   return isLoggedIn ? (
     window.location.replace(
-      "https://ns1.youngtalentz.com/apps/test_app/#/profile"
+      "https://ns1.youngtalentz.com/apps/#/profile"
     )
   ) : (
     <Container component="main" maxWidth="lg">

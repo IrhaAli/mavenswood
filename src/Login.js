@@ -28,7 +28,7 @@ function Login({ isLoggedIn, setIsLoggedIn }) {
   }
 
   useEffect(() => {
-    if (loginDetails.email.length > 0) {
+    if (loginDetails.email.length > 0 || loginDetails.pass.length > 0) {
       const url = `https://ns1.youngtalentz.com/wp-json/jwt-auth/v1/token`;
       let formData = new FormData();
       formData.append("username", loginDetails.email);
@@ -46,7 +46,7 @@ function Login({ isLoggedIn, setIsLoggedIn }) {
             cookies.set("name", data["user_display_name"]);
             cookies.set("email", data["user_email"]);
             window.location.replace(
-              "https://ns1.youngtalentz.com/apps/test_app/#/profile"
+              "https://ns1.youngtalentz.com/apps/#/profile"
             );
           } else {
             setServerMessage(data["message"]);
@@ -62,7 +62,7 @@ function Login({ isLoggedIn, setIsLoggedIn }) {
 
   return isLoggedIn ? (
     window.location.replace(
-      "https://ns1.youngtalentz.com/apps/test_app/#/profile"
+      "https://ns1.youngtalentz.com/apps/#/profile"
     )
   ) : (
     <Container component="main" maxWidth="lg">

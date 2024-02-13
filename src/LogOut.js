@@ -9,7 +9,7 @@ function LogOut() {
     cookies.remove("jwt");
     cookies.remove("name");
     cookies.remove("email");
-    window.location.replace("https://ns1.youngtalentz.com/apps/test_app");
+    window.location.replace("https://ns1.youngtalentz.com/apps");
   }, []);
 
   return <></>;

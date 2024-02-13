@@ -6,13 +6,14 @@
   display: flex;
   justify-content: space-between;
   margin: 0 2em 0 2em;
+  background-color: black;
 }
 
-h1{
+h1 {
   text-align: center;
 }
 
-nav{
+nav {
   display: flex;
   flex-direction: row;
   width: 20vw;
@@ -20,27 +21,27 @@ nav{
   align-items: center;
 }
 
-input{
-  padding: .8em;
+input {
+  padding: 0.8em;
   border-radius: 5px;
   width: 300px;
 }
 
-input[type=submit]{
-padding: .8em 0;
-font-size: large;
-font-weight: 800;
-background-color: skyblue;
-border: unset;
-margin-top: 1em;
-width: 100%;
+input[type="submit"] {
+  padding: 0.8em 0;
+  font-size: large;
+  font-weight: 800;
+  background-color: skyblue;
+  border: unset;
+  margin-top: 1em;
+  width: 100%;
 }
 
-input[type=submit]:hover{
+input[type="submit"]:hover {
   background-color: chartreuse;
 }
 
-.login{
+.login {
   display: flex;
   flex-direction: column;
   /* text-align: left; */

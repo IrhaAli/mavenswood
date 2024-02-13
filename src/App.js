@@ -7,23 +7,24 @@ import SignUp from "./SignUp";
 import Posts from "./Posts";
 import NewPost from "./NewPost";
 import LogOut from "./LogOut";
+import Cookies from "universal-cookie";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const cookies = new Cookies();
+  const cookie = cookies.get("name");
 
   return (
     <>
       <Router>
-        <Header
-          isLoggedIn={isLoggedIn}
-        >
+        <Header isLoggedIn={isLoggedIn}>
           <nav>
             <Link to="/">Home Page</Link>
-            {!isLoggedIn && <Link to="/signup">Sign Up</Link>}
-            {!isLoggedIn && <Link to="/login">Login</Link>}
-            {isLoggedIn && <Link to="/profile">Profile</Link>}
-            {isLoggedIn && <Link to="/new-post">New Post</Link>}
-            {isLoggedIn && <Link to="/logout">Log Out</Link>}
+            {!cookie && <Link to="/signup">Sign Up</Link>}
+            {!cookie && <Link to="/login">Login</Link>}
+            {cookie && <Link to="/profile">Profile</Link>}
+            {cookie && <Link to="/new-post">New Post</Link>}
+            {cookie && <Link to="/logout">Log Out</Link>}
           </nav>
         </Header>
         <Switch>
@@ -31,10 +32,10 @@ function App() {
             <Posts />
           </Route>
           <Route path="/new-post">
-            <NewPost />
+            <NewPost isLoggedIn={isLoggedIn} />
           </Route>
-          <Route exact path="/profile">
-            <ProfilePage />
+          <Route path="/profile">
+            <ProfilePage isLoggedIn={isLoggedIn} />
           </Route>
           <Route path="/login">
             <Login isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
