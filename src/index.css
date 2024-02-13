@@ -93,6 +93,8 @@ input[type=submit]:hover{
 .search-bar {
   display: flex;
   justify-content: flex-end;
+  margin-left: 1rem;
+  width: 40%;
 }
 
 .header {
@@ -118,7 +120,7 @@ h1 {
 nav {
   display: flex;
   flex-direction: row;
-  width: 20vw;
+  width: 30%;
   justify-content: space-evenly;
   align-items: center;
 }

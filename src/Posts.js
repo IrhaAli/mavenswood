@@ -9,6 +9,11 @@ import TextField from "@mui/material/TextField";
 export default function Posts({ posts }) {
   const [filteredPosts, setFilteredPosts] = useState([]);
   const [search, setSearch] = useState("");
+  const styles = {
+    display: "flex",
+    width: "95%",
+    "margin-left": "0.7rem"
+  };
 
   useEffect(() => {
     setFilteredPosts(posts);
@@ -39,9 +44,10 @@ export default function Posts({ posts }) {
           name="search"
           value={search}
           onChange={handleChange}
+          style={{ width: "100%" }}
         />
       </div>
-      <Grid container spacing={2}>
+      <Grid container spacing={2} style={styles}>
         {filteredPosts.map((post, index) => (
           <Grid item xs={4} key={index}>
             <a href={post.link} target="_blank">
