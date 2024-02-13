@@ -13,7 +13,6 @@ import { Container } from "@mui/material";
 import Cookies from "universal-cookie";
 
 function Login({ isLoggedIn, setIsLoggedIn }) {
-  const [loginSubmitted, setLoginSubmitted] = useState(false);
   const [loginDetails, setLoginDetails] = useState({
     email: "",
     pass: "",
@@ -27,8 +26,9 @@ function Login({ isLoggedIn, setIsLoggedIn }) {
     });
   }
 
-  useEffect(() => {
-    if (loginDetails.email.length > 0 || loginDetails.pass.length > 0) {
+  function handleSubmit(event) {
+    event.preventDefault();
+    if (loginDetails.email.length > 0 && loginDetails.pass.length > 0) {
       const url = `https://ns1.youngtalentz.com/wp-json/jwt-auth/v1/token`;
       let formData = new FormData();
       formData.append("username", loginDetails.email);
@@ -49,21 +49,18 @@ function Login({ isLoggedIn, setIsLoggedIn }) {
               "https://ns1.youngtalentz.com/apps/#/profile"
             );
           } else {
-            setServerMessage(data["message"]);
+            setServerMessage(
+              "There was an error while logging in. Please, try again."
+            );
           }
         });
+    } else {
+      setServerMessage("Please include your email and password.");
     }
-  }, [loginSubmitted]);
-
-  function handleSubmit(event) {
-    event.preventDefault();
-    setLoginSubmitted((prev) => !prev);
   }
 
   return isLoggedIn ? (
-    window.location.replace(
-      "https://ns1.youngtalentz.com/apps/#/profile"
-    )
+    window.location.replace("https://ns1.youngtalentz.com/apps/#/profile")
   ) : (
     <Container component="main" maxWidth="lg">
       <Box

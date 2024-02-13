@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import Cookies from "universal-cookie";
 
 function NewPost({ isLoggedIn }) {
-  const [postSubmitted, setPostSubmitted] = useState(false);
   const [postDetails, setPostDetails] = useState({
     title: "",
     content: "",
@@ -18,13 +17,7 @@ function NewPost({ isLoggedIn }) {
   }
 
   function handleSubmit() {
-    postDetails.title.length > 0 || postDetails.content.length > 0
-      ? setPostSubmitted((prev) => !prev)
-      : setServerMessage("Please enter a title and content");
-  }
-
-  useEffect(() => {
-    if (postDetails.title.length > 0 || postDetails.content.length > 0) {
+    if (postDetails.title.length > 0 && postDetails.content.length > 0) {
       const url = `https://ns1.youngtalentz.com/wp-json/wp/v2/posts?title=${postDetails.title}&content=${postDetails.content}&status=publish`;
       fetch(url, {
         method: "POST",
@@ -36,22 +29,20 @@ function NewPost({ isLoggedIn }) {
         .then((data) => {
           if (data) {
             setServerMessage("");
-            window.location.replace(
-              "https://ns1.youngtalentz.com/apps"
-            );
+            window.location.replace("https://ns1.youngtalentz.com/apps");
           } else {
             setServerMessage(
               "There was an error adding the post. Please, try again."
             );
           }
         });
+    } else {
+      setServerMessage("Please add a title and some content");
     }
-  }, [postSubmitted]);
+  }
 
   return isLoggedIn ? (
-    window.location.replace(
-      "https://ns1.youngtalentz.com/apps/#/profile"
-    )
+    window.location.replace("https://ns1.youngtalentz.com/apps/#/profile")
   ) : (
     <>
       <div className="App">

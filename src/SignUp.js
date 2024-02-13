@@ -13,7 +13,6 @@ import { Container } from "@mui/material";
 import Cookies from "universal-cookie";
 
 function SignUp({ isLoggedIn, setIsLoggedIn }) {
-  const [signUpSubmitted, setSignUpSubmitted] = useState(false);
   const [signUpDetails, setSignUpDetails] = useState({
     user: "",
     email: "",
@@ -28,7 +27,8 @@ function SignUp({ isLoggedIn, setIsLoggedIn }) {
     });
   }
 
-  useEffect(() => {
+  function handleSubmit(event) {
+    event.preventDefault();
     if (
       signUpDetails.user.length > 0 &&
       signUpDetails.email.length > 0 &&
@@ -49,22 +49,15 @@ function SignUp({ isLoggedIn, setIsLoggedIn }) {
             window.location.replace(
               "https://ns1.youngtalentz.com/apps/#/profile"
             );
-          } else {
-            setServerMessage(data["data"]["message"]);
           }
         });
+    } else {
+      setServerMessage("Please include a username, email and password.");
     }
-  }, [signUpSubmitted]);
-
-  function handleSubmit(event) {
-    event.preventDefault();
-    setSignUpSubmitted((prev) => !prev);
   }
 
   return isLoggedIn ? (
-    window.location.replace(
-      "https://ns1.youngtalentz.com/apps/#/profile"
-    )
+    window.location.replace("https://ns1.youngtalentz.com/apps/#/profile")
   ) : (
     <Container component="main" maxWidth="lg">
       <Box
