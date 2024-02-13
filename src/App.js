@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { HashRouter as Router, Link, Route, Switch } from "react-router-dom";
 import Header from "./Header";
 import Login from "./Login";
@@ -11,13 +11,48 @@ import Cookies from "universal-cookie";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [posts, setPosts] = useState([]);
   const cookies = new Cookies();
   const cookie = cookies.get("name");
+
+  const pairedUsers = function (fetchedUsers) {
+    const users = {};
+    for (const user of fetchedUsers) {
+      users[`${user.id}`] = user.name;
+    }
+    return users;
+  };
+
+  useEffect(() => {
+    async function loadPosts() {
+      const fetchedPosts = await fetch(
+        "https://ns1.youngtalentz.com/wp-json/wp/v2/posts"
+      );
+      const fetchedUsers = await fetch(
+        "https://ns1.youngtalentz.com/wp-json/wp/v2/users"
+      );
+      if (!fetchedPosts.ok || !fetchedUsers.ok) {
+        return;
+      }
+      let users = await fetchedUsers.json();
+      let posts = await fetchedPosts.json();
+      users = pairedUsers(users);
+      posts = posts.map((post) => ({
+        ...post,
+        author: users[`${post.author}`],
+        title: post.title.rendered,
+        content: post.content.rendered,
+      }));
+      setPosts(posts);
+    }
+
+    loadPosts();
+  }, []);
 
   return (
     <>
       <Router>
-        <Header isLoggedIn={isLoggedIn}>
+        <Header isLoggedIn={isLoggedIn} name={cookies.get("name") ? cookies.get("name") : "Guest"}>
           <nav>
             <Link to="/">Home Page</Link>
             {!cookie && <Link to="/signup">Sign Up</Link>}
@@ -29,7 +64,7 @@ function App() {
         </Header>
         <Switch>
           <Route exact path="/">
-            <Posts />
+            <Posts posts={posts}/>
           </Route>
           <Route path="/new-post">
             <NewPost isLoggedIn={isLoggedIn} />

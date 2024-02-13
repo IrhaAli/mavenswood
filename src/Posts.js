@@ -1,22 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@mui/material/TextField";
 
-export default function Posts() {
-  const [posts, setPosts] = useState([]);
+export default function Posts({posts}) {
   const [filteredPosts, setFilteredPosts] = useState([]);
   const [search, setSearch] = useState("");
 
-  const pairedUsers = function (fetchedUsers) {
-    const users = {};
-    for (const user of fetchedUsers) {
-      users[`${user.id}`] = user.name;
-    }
-    return users;
-  };
+  useEffect(() => {
+    setFilteredPosts(posts)
+  }, [posts])
 
   const handleChange = function (e) {
     const searchValue = e.target.value;
@@ -32,34 +27,6 @@ export default function Posts() {
         : posts
     );
   };
-
-  useEffect(() => {
-    async function loadPosts() {
-      const fetchedPosts = await fetch(
-        "https://ns1.youngtalentz.com/wp-json/wp/v2/posts"
-      );
-      const fetchedUsers = await fetch(
-        "https://ns1.youngtalentz.com/wp-json/wp/v2/users"
-      );
-      if (!fetchedPosts.ok || !fetchedUsers.ok) {
-        return;
-      }
-      let users = await fetchedUsers.json();
-      let posts = await fetchedPosts.json();
-      users = pairedUsers(users);
-      posts = posts.map((post) => ({
-        ...post,
-        author: users[`${post.author}`],
-        title: post.title.rendered,
-        content: post.content.rendered,
-      }));
-      setPosts(posts);
-      setFilteredPosts(posts);
-      setSearch("");
-    }
-
-    loadPosts();
-  }, []);
 
   return (
     <>

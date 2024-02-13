@@ -1,17 +1,12 @@
 import React from "react";
-import Cookies from "universal-cookie";
 
-function Header({ children }) {
-  const cookies = new Cookies();
-  const displayName = cookies.get("name") ? cookies.get("name") : "Guest";
+function Header({ children, name }) {
 
   return (
-    <>
       <div className="header">
-        <p>Welcome {displayName}</p>
+        <p>Welcome {name}</p>
         {children}
       </div>
-    </>
   );
 }
 
