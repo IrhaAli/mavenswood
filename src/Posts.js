@@ -19,16 +19,15 @@ export default function Posts() {
   };
 
   const handleChange = function (e) {
-    e.preventDefault();
-    setSearch(e.target.value);
-    console.log(search);
+    const searchValue = e.target.value;
+    setSearch(searchValue);
     setFilteredPosts(
       search.length > 0
         ? posts.filter(
             (post) =>
-              post.title.rendered.includes(search) ||
-              post.content.rendered.includes(search) ||
-              post.author.includes(search)
+              post.title.includes(searchValue) ||
+              post.content.includes(searchValue) ||
+              post.author.includes(searchValue)
           )
         : posts
     );
@@ -51,6 +50,8 @@ export default function Posts() {
       posts = posts.map((post) => ({
         ...post,
         author: users[`${post.author}`],
+        title: post.title.rendered,
+        content: post.content.rendered,
       }));
       setPosts(posts);
       setFilteredPosts(posts);
@@ -79,7 +80,7 @@ export default function Posts() {
                   <Typography
                     color="textSecondary"
                     gutterBottom
-                    dangerouslySetInnerHTML={{ __html: post.title.rendered }}
+                    dangerouslySetInnerHTML={{ __html: post.title }}
                   />
                   <Typography
                     color="body2"
@@ -94,7 +95,7 @@ export default function Posts() {
                   <Typography
                     variant="body2"
                     component="p"
-                    dangerouslySetInnerHTML={{ __html: post.content.rendered }}
+                    dangerouslySetInnerHTML={{ __html: post.content }}
                   />
                 </CardContent>
               </Card>
