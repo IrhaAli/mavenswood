@@ -34,7 +34,7 @@ function SignUp({ isLoggedIn, setIsLoggedIn }) {
       signUpDetails.email.length > 0 &&
       signUpDetails.pass.length > 0
     ) {
-      const url = `https://ns1.youngtalentz.com/?rest_route=/simple-jwt-login/v1/users&email=${signUpDetails.email}&display_name=${signUpDetails.user}&password=${signUpDetails.pass}&AUTH_KEY=abc123`;
+      const url = `https://ns1.youngtalentz.com/?rest_route=/simple-jwt-login/v1/users&email=${signUpDetails.email}&display_name=${signUpDetails.user.replaceAll(" ", "%20")}&password=${signUpDetails.pass}&AUTH_KEY=abc123`;
       fetch(url, {
         method: "POST",
       })
