@@ -1,27 +1,22 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
-
-.App {
+h1 {
   text-align: center;
 }
 
-h1{
-  text-align: center;
-}
-
-nav{
+nav {
   display: flex;
   flex-direction: row;
   width: 20vw;
@@ -29,30 +24,37 @@ nav{
   align-items: center;
 }
 
-input{
-  padding: .8em;
+textarea {
+  padding: 0.8em;
   border-radius: 5px;
-  width: 300px;
+  width: 80%;
 }
 
-input[type=submit]{
-padding: .8em 0;
-font-size: large;
-font-weight: 800;
-background-color: skyblue;
-border: unset;
-margin-top: 1em;
-width: 100%;
+.post-content {
+  height: 20rem;
 }
 
-input[type=submit]:hover{
+input[type="submit"] {
+  padding: 0.8em 0;
+  font-size: large;
+  font-weight: 800;
+  background-color: black;
+  border: unset;
+  border-radius: 25px;
+  margin-top: 1em;
+  width: 15%;
+  color: white;
+}
+
+input[type="submit"]:hover {
   background-color: chartreuse;
 }
 
-.login{
+.login {
   display: flex;
   flex-direction: column;
-  /* text-align: left; */
+  text-align: left;
+  align-items: center;
 }
 
 .App-logo {
@@ -68,9 +70,9 @@ input[type=submit]:hover{
 
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
+  min-height: 10rem;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
@@ -88,6 +90,14 @@ input[type=submit]:hover{
   to {
     transform: rotate(360deg);
   }
+}
+
+header {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
 }
 
 .search-bar {
@@ -125,30 +135,10 @@ nav {
   align-items: center;
 }
 
-input {
-  padding: 0.8em;
-  border-radius: 5px;
-  width: 300px;
-}
-
-input[type="submit"] {
-  padding: 0.8em 0;
-  font-size: large;
-  font-weight: 800;
-  background-color: skyblue;
-  border: unset;
-  margin-top: 1em;
-  width: 100%;
-}
-
-input[type="submit"]:hover {
-  background-color: chartreuse;
-}
-
 .login {
   display: flex;
   flex-direction: column;
-  /* text-align: left; */
+  width: 100%;
 }
 
 .App-logo {
@@ -162,17 +152,6 @@ input[type="submit"]:hover {
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
 .App-link {
   color: #61dafb;
 }
@@ -184,4 +163,9 @@ input[type="submit"]:hover {
   to {
     transform: rotate(360deg);
   }
+}
+
+.avatar {
+  height: 50%;
+  width: 50%;
 }

@@ -44,31 +44,29 @@ function NewPost({ isLoggedIn }) {
   return isLoggedIn ? (
     window.location.replace("https://ns1.youngtalentz.com/apps/#/profile")
   ) : (
-    <>
-      <div className="App">
-        <header className="App-header">
-          <h2>New Post</h2>
-          <p>{serverMessage}</p>
-          <div className="login">
-            <input
-              type="text"
-              placeholder="Title"
-              name="title"
-              value={postDetails.title}
-              onChange={handleChange}
-            />
-            <input
-              type="text"
-              placeholder="Content"
-              name="content"
-              value={postDetails.content}
-              onChange={handleChange}
-            />
-            <input type="submit" value="Go" onClick={handleSubmit} />
-          </div>
-        </header>
-      </div>
-    </>
+      <header>
+        <h2>New Post</h2>
+        {serverMessage && <p>{serverMessage}</p>}
+        <div className="login">
+          <textarea
+            type="text"
+            placeholder="Title"
+            name="title"
+            value={postDetails.title}
+            onChange={handleChange}
+          />
+          <textarea
+            type="text"
+            placeholder="Content"
+            name="content"
+            className="post-content"
+            value={postDetails.content}
+            onChange={handleChange}
+            rows="5"
+          />
+          <input type="submit" value="Submit" onClick={handleSubmit} />
+        </div>
+      </header>
   );
 }
 

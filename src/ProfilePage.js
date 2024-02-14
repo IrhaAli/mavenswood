@@ -15,18 +15,29 @@ function ProfilePage({ isLoggedIn, posts }) {
   return isLoggedIn ? (
     window.location.replace("https://ns1.youngtalentz.com/apps/#/profile")
   ) : (
-    <div className="App">
+    <>
       <header className="App-header">
-        <h1>Profile</h1>
-        <p>
-          {name
-            ? `${name}'s User Profile`
-            : "You are not currently logged in. Please login to see your user profile"}
-        </p>
-        <p>{cookies.get("email") || ""}</p>
+        <div className="avatar">
+        <img
+          src="https://emedia1.nhs.wales/HEIW2/cache/file/F4C33EF0-69EE-4445-94018B01ADCF6FD4.png"
+          alt="Avatar"
+          width="500"
+          height="500"
+          
+        />
+        </div>
+        <div>
+          <h1>My Profile</h1>
+          <p>
+            {name
+              ? `${name}'s User Profile`
+              : "You are not currently logged in. Please login to see your user profile"}
+          </p>
+          <p>{cookies.get("email") || ""}</p>
+        </div>
       </header>
       <Posts posts={myPosts} />
-    </div>
+    </>
   );
 }
 
